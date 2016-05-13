@@ -1,12 +1,11 @@
-<h1>Create Job</h1>
+<h1>Edit Job</h1>
 
-<%= form_tag jobs_path, method: :post do %>
+<%= form_tag job_path, method: :patch do %>
 <div>
   <%= label_tag :title %>
   <%= text_field_tag(
   :title,
-  params[:title],
-  placeholder: "title",
+  @job['title']
   ) %>
 </div>
 
@@ -14,8 +13,7 @@
   <%= label_tag :description %>
   <%= text_field_tag(
   :description,
-  params[:description],
-  placeholder: "description",
+  @job['description']
   ) %>
 </div>
 
@@ -23,11 +21,10 @@
   <%= label_tag :salary %>
   <%= text_field_tag(
   :salary,
-  params[:salary],
-  placeholder: "salary",
+  @job['salary']
   ) %>
 </div>
 
-<%= submit_tag "Submit" %>
+<%= submit_tag "Update" %>
 
 <% end %>

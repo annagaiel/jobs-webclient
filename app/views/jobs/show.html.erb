@@ -4,3 +4,6 @@
   <li><%= @job[key] %></li>
   <% end %>
 </ul>
+
+<%= link_to "Edit", edit_job_path %>
+<%= link_to "Delete", job_path, method: :delete %>
