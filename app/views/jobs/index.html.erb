@@ -1,0 +1,9 @@
+<h1>Jobs#index</h1>
+<p>Find me in app/views/jobs/index.html.erb</p>
+  <% @jobs.each do |job| %>
+    <ul>
+      <% job.each do |key, value| %>
+      <li><%= job[key] %></li>
+      <% end %>
+    </ul>
+  <% end %>

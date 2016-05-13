@@ -1,0 +1,18 @@
+<%= form_tag jobs_path, method: :post do %>
+  <%= text_field_tag(
+      :title,
+      params[:title],
+      placeholder: "title",
+  ) %>
+  <%= text_field_tag(
+      :description,
+      params[:description],
+      placeholder: "description",
+  ) %>
+  <%= text_field_tag(
+        :salary,
+        params[:salary],
+        placeholder: "salary",
+    ) %>
+  <%= submit_tag "Submit" %>
+<% end %>
