@@ -1,14 +1,16 @@
 class JobsController < ApplicationController
 
   def index
-    @jobs = Unirest.get("#{ENV['DOMAIN']}/jobs.json").body
+    jobs_array = Unirest.get("#{ENV['DOMAIN']}/jobs.json").body
+    @jobs = jobs_array.map {|job| Job.new(job) }
   end
 
   def new
   end
 
   def show
-    @job = Unirest.get("#{ENV['DOMAIN']}/jobs/#{params[:id]}.json").body
+    job_hash = Unirest.get("#{ENV['DOMAIN']}/jobs/#{params[:id]}.json").body
+    @job = Job.new(job_hash)
   end
 
   def create

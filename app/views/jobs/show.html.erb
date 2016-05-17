@@ -1,8 +1,8 @@
 <h1>Jobs#show</h1>
 <ul>
-  <% @job.each do |key, value| %>
-  <li><%= @job[key] %></li>
-  <% end %>
+  <li><%= @job.title %></li>
+  <li><%= @job.description %></li>
+  <li><%= @job.salary %></li>
 </ul>
 
 <%= link_to "Edit", edit_job_path %>
