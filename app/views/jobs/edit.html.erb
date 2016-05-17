@@ -3,26 +3,17 @@
 <%= form_tag job_path, method: :patch do %>
 <div>
   <%= label_tag :title %>
-  <%= text_field_tag(
-  :title,
-  @job['title']
-  ) %>
+  <%= text_field_tag(:title, @job.title) %>
 </div>
 
 <div>
   <%= label_tag :description %>
-  <%= text_field_tag(
-  :description,
-  @job['description']
-  ) %>
+  <%= text_field_tag(:description, @job.description) %>
 </div>
 
 <div>
   <%= label_tag :salary %>
-  <%= text_field_tag(
-  :salary,
-  @job['salary']
-  ) %>
+  <%= text_field_tag(:salary, @job.salary) %>
 </div>
 
 <%= submit_tag "Update" %>

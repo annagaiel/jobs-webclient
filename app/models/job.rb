@@ -19,5 +19,23 @@ class Job
     return jobs_array.map {|job| Job.new(job) }
   end
 
+  def destroy
+    return Unirest.delete("#{ENV['DOMAIN']}/jobs/#{@id}.json").body
+  end
+
+  def update(params)
+    return Unirest.patch("#{ENV['DOMAIN']}/jobs/#{@id}.json", headers: {"Accept" => "application/json"}, parameters: { title: params[:title],
+                          description: params[:description],
+                          salary: params[:salary]
+                        }).body
+  end
+
+  def self.create(params)
+    job_hash =  Unirest.post("#{ENV['DOMAIN']}/jobs/#{@id}.json", headers: {"Accept" => "application/json"}, parameters: { title: params[:title],
+                          description: params[:description],
+                          salary: params[:salary]
+                        }).body
+    return Job.new(job_hash)
+  end
 
 end

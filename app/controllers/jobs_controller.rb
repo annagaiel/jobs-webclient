@@ -12,29 +12,29 @@ class JobsController < ApplicationController
   end
 
   def create
-    @job = Unirest.post("#{ENV['DOMAIN']}/jobs.json", headers: {"Accept" => "application/json"}, parameters:
-                        { title: params[:title],
+    job = Job.create({ title: params[:title],
                           description: params[:description],
                           salary: params[:salary]
-                        }).body
-    redirect_to "/jobs/#{@job['id']}"
+                        })
+    redirect_to "/jobs/#{job.id}"
   end
 
   def edit
-    @job = Unirest.get("#{ENV['DOMAIN']}/jobs/#{params[:id]}.json").body
+    @job = Job.find(params[:id])
   end
 
   def update
-    @job = Unirest.patch("#{ENV['DOMAIN']}/jobs/#{params[:id]}.json", headers: {"Accept" => "application/json"}, parameters:
-                        { title: params[:title],
+    @job = Job.find(params[:id])
+    @job.update({ title: params[:title],
                           description: params[:description],
                           salary: params[:salary]
-                        }).body
-    redirect_to "/jobs/#{@job['id']}"
+                        })
+    redirect_to "/jobs/#{@job.id}"
   end
 
   def destroy
-    @job = Unirest.delete("#{ENV['DOMAIN']}/jobs/#{params[:id]}.json").body
+    @job = Job.find(params[:id])
+    @job.destroy
     redirect_to "/jobs"
   end
 end
