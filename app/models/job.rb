@@ -10,13 +10,24 @@ class Job
   end
 
   def self.find(id)
-    job_hash = Unirest.get("#{ENV['DOMAIN']}/jobs/#{id}.json").body
+    job_hash = Unirest.get("#{ENV['DOMAIN']}/jobs/#{id}.json",
+    headers: {"Accept" => "application/json",
+    "Authorization" => "Token token=#{ENV['TOKEN']}",
+    "X-User-Email" => "#{ENV['EMAIL']}"}).body
     return Job.new(job_hash)
   end
 
   def self.all
-    jobs_array = Unirest.get("#{ENV['DOMAIN']}/jobs.json").body
-    return jobs_array.map {|job| Job.new(job) }
+    jobs_array = Unirest.get("#{ENV['DOMAIN']}/jobs.json",
+    headers: {"Accept" => "application/json",
+    "Authorization" => "Token token=#{ENV['TOKEN']}",
+    "X-User-Email" => "#{ENV['EMAIL']}"}
+    ).body
+    jobs = []
+    jobs_array.map do |hash|
+      jobs << Job.new(hash)
+    end
+    return jobs
   end
 
   def destroy
@@ -24,14 +35,18 @@ class Job
   end
 
   def update(params)
-    return Unirest.patch("#{ENV['DOMAIN']}/jobs/#{@id}.json", headers: {"Accept" => "application/json"}, parameters: { title: params[:title],
+    return Unirest.patch("#{ENV['DOMAIN']}/jobs/#{@id}.json", headers: {"Accept" => "application/json",
+    "Authorization" => "Token token=#{ENV['TOKEN']}",
+    "X-User-Email" => "#{ENV['EMAIL']}"}, parameters: { title: params[:title],
                           description: params[:description],
                           salary: params[:salary]
                         }).body
   end
 
   def self.create(params)
-    job_hash =  Unirest.post("#{ENV['DOMAIN']}/jobs/#{@id}.json", headers: {"Accept" => "application/json"}, parameters: { title: params[:title],
+    job_hash =  Unirest.post("#{ENV['DOMAIN']}/jobs/#{@id}.json", headers: {"Accept" => "application/json",
+    "Authorization" => "Token token=#{ENV['TOKEN']}",
+    "X-User-Email" => "#{ENV['EMAIL']}"}, parameters: { title: params[:title],
                           description: params[:description],
                           salary: params[:salary]
                         }).body
